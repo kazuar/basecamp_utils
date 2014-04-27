@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+
+    "name": "Basecamp Utils",
+    "version": "1.0",
+    "description": "Basecamp chrome extension.",
+
+    "permissions": [
+        "http://basecamp.com/",
+        "https://basecamp.com/"
+    ],
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["http://basecamp.com/*", "https://basecamp.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
