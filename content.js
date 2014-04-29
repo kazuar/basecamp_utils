@@ -11,17 +11,12 @@ function pasteHtmlAtCaret(isShift) {
         if (sel.getRangeAt && sel.rangeCount) {
             range = sel.getRangeAt(0);
             console.log(range);
-            //alert(range.commonAncestorContainer.parentNode.nodeName);
-            //range.deleteContents();
 
             // Range.createContextualFragment() would be useful here but is
             // non-standard and not supported in all browsers (IE9, for one)
             var el = windo.document.createElement("ol");
-            //el.innerHTML = html;
-            // var frag = windo.document.createDocumentFragment(), node, lastNode;
-            // while ( (node = el.firstChild) ) {
-            //     lastNode = frag.appendChild(node);
-            // }
+
+            // Get an LI object and wrap it with OL object
             node = range.commonAncestorContainer;
             if (node.nodeName != "LI")
                 node = node.parentNode;
@@ -29,25 +24,17 @@ function pasteHtmlAtCaret(isShift) {
             console.log(node.nodeName);
             if (node.nodeName == "LI")
             {
-                // alert(range.commonAncestorContainer.nodeName);
                 range.selectNode(node);
                 range.surroundContents(el);
             }
+
+            // Move selection
             sel.removeAllRanges();
             sel.addRange(range);
-            
-            // Preserve the selection
-            // if (lastNode) {
-            //     range = range.cloneRange();
-            //     range.setStartAfter(lastNode);
-            //     range.collapse(true);
-            //     sel.removeAllRanges();
-            //     sel.addRange(range);
-            // }
         }
     } else if (windo.document.selection && windo.document.selection.type != "Control") {
         // IE < 9
-        windo.document.selection.createRange().pasteHTML(html);
+        // TODO:
     }
 }
 
